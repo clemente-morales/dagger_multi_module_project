@@ -1,7 +1,8 @@
-package com.blogspot.cmf.android.dagger.app.setup;
+package com.blogspot.cmf.android.dagger.app.di;
 
 import android.app.Application;
 
+import com.blogspot.cmf.android.dagger.app.BaseModuleApplication;
 import com.blogspot.cmf.android.dagger.app.models.EmptyLogHandler;
 import com.blogspot.cmf.android.dagger.core.models.LogHandler;
 
