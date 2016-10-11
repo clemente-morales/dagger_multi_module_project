@@ -1,6 +1,6 @@
-package com.blogspot.cmf.android.dagger.views;
+package com.blogspot.cmf.android.dagger.core.views;
 
-import com.blogspot.cmf.android.dagger.models.DataFragment;
+import com.blogspot.cmf.android.dagger.core.models.DataFragment;
 
 /**
  * @author Clemente Morales Fernandez

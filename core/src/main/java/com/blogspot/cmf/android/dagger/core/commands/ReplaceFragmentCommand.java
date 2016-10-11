@@ -1,7 +1,8 @@
-package com.blogspot.cmf.android.dagger.commands;
+package com.blogspot.cmf.android.dagger.core.commands;
 
-import com.blogspot.cmf.android.dagger.models.DataFragment;
-import com.blogspot.cmf.android.dagger.views.FragmentManager;
+
+import com.blogspot.cmf.android.dagger.core.models.DataFragment;
+import com.blogspot.cmf.android.dagger.core.views.FragmentManager;
 
 /**
  * Allows the invoker to replace the current fragment with the new provided fragment.

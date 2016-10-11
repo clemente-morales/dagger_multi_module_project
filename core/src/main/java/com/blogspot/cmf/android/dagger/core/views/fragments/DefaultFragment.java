@@ -1,10 +1,10 @@
-package com.blogspot.cmf.android.dagger.views.fragments;
+package com.blogspot.cmf.android.dagger.core.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.blogspot.cmf.android.dagger.R;
+import com.blogspot.cmf.android.dagger.core.R;
 
 
 /**

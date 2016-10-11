@@ -1,4 +1,4 @@
-package com.vzw.mobilefirst.core.models;
+package com.blogspot.cmf.android.dagger.core.models;
 
 /**
  * Created by mallakr on 12/21/2015.

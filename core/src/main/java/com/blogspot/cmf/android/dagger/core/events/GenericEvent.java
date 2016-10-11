@@ -1,4 +1,4 @@
-package com.blogspot.cmf.android.dagger.events;
+package com.blogspot.cmf.android.dagger.core.events;
 
 /**
  * Created by moracl6 on 2/25/2016.

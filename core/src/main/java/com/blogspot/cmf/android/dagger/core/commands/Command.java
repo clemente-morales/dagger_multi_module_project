@@ -1,4 +1,4 @@
-package com.blogspot.cmf.android.dagger.commands;
+package com.blogspot.cmf.android.dagger.core.commands;
 
 /**
  * Implement this class to enqueue a task, decoupling the invoker from the receiver of the action.

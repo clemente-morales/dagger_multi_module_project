@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+apply plugin: "com.jfrog.artifactory"
+apply plugin: 'com.neenbedankt.android-apt'
+
+group = 'com.blogspot.cmf.android.dagger'
+version = currentVersion
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    signingConfigs {
+        releaseConfig {
+            keyAlias 'release_key'
+            keyPassword KEY_PASSWORD
+            storeFile file('../signingkeys/my_app.keystore')
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.releaseConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+
+    compile "org.apache.commons:commons-lang3:3.4"
+
+    apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+    compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    compile "de.greenrobot:eventbus:$rootProject.ext.eventbusVersion"
+
+    compile project(':core')
+
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = 'android-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+
+        }
+        defaults {
+            publishConfigs('archives')
+            publishArtifacts = true
+            publishPom = true
+            publishIvy = false
+            properties = ['build.status': "$it.project.status".toString()]
+        }
+    }
+}
+
+
+

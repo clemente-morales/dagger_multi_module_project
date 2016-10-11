@@ -1,4 +1,4 @@
-package com.blogspot.cmf.android.dagger.models;
+package com.blogspot.cmf.android.dagger.core.models;
 
 import android.support.v4.app.Fragment;
 
