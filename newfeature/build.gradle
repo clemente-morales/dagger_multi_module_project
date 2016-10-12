@@ -38,6 +38,9 @@ dependencies {
     provided project(':core')
     provided "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
 
+    provided "org.greenrobot:eventbus:$rootProject.ext.eventbusVersion"
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

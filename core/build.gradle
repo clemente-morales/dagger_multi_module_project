@@ -30,7 +30,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-
+    compile "org.greenrobot:eventbus:$rootProject.ext.eventbusVersion"
     compile "org.apache.commons:commons-lang3:3.4"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"

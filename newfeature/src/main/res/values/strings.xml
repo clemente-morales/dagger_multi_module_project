@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">newfeature</string>
+    <string name="get_joke">Get Joke</string>
+    <string name="joke_1">There were two peanuts walking down a dark alley, one was assaulted</string>
 </resources>

@@ -7,11 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.blogspot.cmf.android.dagger.app.R;
-import com.blogspot.cmf.android.dagger.app.di.ApplicationComponents;
+import com.blogspot.cmf.android.dagger.app.di.AppComponents;
 import com.blogspot.cmf.android.dagger.app.di.SetupApplication;
-import com.blogspot.cmf.android.dagger.core.events.ReplaceFragmentEvent;
 import com.blogspot.cmf.android.dagger.app.views.fragments.HomeFragment;
 import com.blogspot.cmf.android.dagger.core.commands.ReplaceFragmentCommand;
+import com.blogspot.cmf.android.dagger.core.events.ReplaceFragmentEvent;
 import com.blogspot.cmf.android.dagger.core.models.DataFragment;
 import com.blogspot.cmf.android.dagger.core.models.LogHandler;
 import com.blogspot.cmf.android.dagger.core.views.FragmentManager;
@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ApplicationComponents applicationComponents = SetupApplication.getObjectGraph(this.getApplication());
+        AppComponents applicationComponents = SetupApplication.getObjectGraph(this.getApplication());
         applicationComponents.inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -67,11 +67,13 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReplaceFragmentCommand(ReplaceFragmentCommand command) {
+        eventBus.removeStickyEvent(command);
         command.execute(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReplaceFragmentEvent(ReplaceFragmentEvent event) {
+        eventBus.removeStickyEvent(event);
         replaceCurrentFragment(event.getFragment(), event.isRequiredToAddInBackStack());
     }
 
