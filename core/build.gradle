@@ -32,8 +32,6 @@ dependencies {
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
 
     compile "org.apache.commons:commons-lang3:3.4"
-    // compile "javax.inject:javax.inject:1"
-    // compile "de.greenrobot:eventbus:2.4.0"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 

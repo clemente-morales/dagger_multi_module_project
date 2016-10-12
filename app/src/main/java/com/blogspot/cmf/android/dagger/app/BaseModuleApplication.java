@@ -25,11 +25,6 @@ public abstract class BaseModuleApplication {
     }
 
     @Provides
-    public final Context providesApplicationContext() {
-        return application;
-    }
-
-    @Provides
     @Singleton
     public final SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(application);

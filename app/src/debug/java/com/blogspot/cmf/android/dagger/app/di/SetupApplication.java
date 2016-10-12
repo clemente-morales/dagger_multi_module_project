@@ -1,11 +1,9 @@
-package com.blogspot.cmf.android.dagger.app;
+package com.blogspot.cmf.android.dagger.app.di;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.blogspot.cmf.android.dagger.app.di.DaggerDebugApplicationComponents;
-import com.blogspot.cmf.android.dagger.app.di.DebugApplicationComponents;
-import com.blogspot.cmf.android.dagger.app.di.DebugDependencyModuleApplication;
+import com.blogspot.cmf.android.dagger.app.ApplicationComponents;
 
 
 /**
@@ -16,14 +14,24 @@ import com.blogspot.cmf.android.dagger.app.di.DebugDependencyModuleApplication;
 public class SetupApplication extends Application {
     private DebugApplicationComponents debugApplicationComponents;
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        loadGraph();
+    }
+
     public ApplicationComponents getObjectGraph() {
         if (debugApplicationComponents == null) {
-            debugApplicationComponents = DaggerDebugApplicationComponents.builder()
-                    .debugDependencyModuleApplication(
-                            new DebugDependencyModuleApplication(this)).build();
+            loadGraph();
         }
 
         return debugApplicationComponents;
+    }
+
+    private void loadGraph() {
+        debugApplicationComponents = DaggerDebugApplicationComponents.builder()
+                .debugDependencyModuleApplication(
+                        new DebugDependencyModuleApplication(this)).build();
     }
 
     public static ApplicationComponents getObjectGraph(Context context) {

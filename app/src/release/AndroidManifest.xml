@@ -2,7 +2,7 @@
     package="com.blogspot.cmf.android.dagger.app">
 
     <application android:allowBackup="true" android:label="@string/app_name"
-        android:name=".SetupApplication"
+        android:name=".di.SetupApplication"
         android:supportsRtl="true">
 
     </application>

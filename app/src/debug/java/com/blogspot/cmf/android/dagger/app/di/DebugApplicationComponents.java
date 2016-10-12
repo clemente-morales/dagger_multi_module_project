@@ -12,6 +12,6 @@ import dagger.Component;
  * @since 10/11/2016.
  */
 @Singleton
-@Component(modules = {BaseModuleApplication.class})
+@Component(modules = {DebugDependencyModuleApplication.class})
 public interface DebugApplicationComponents extends ApplicationComponents {
 }

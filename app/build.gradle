@@ -8,6 +8,7 @@ version = currentVersion
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
+    compileOptions.incremental = false
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
