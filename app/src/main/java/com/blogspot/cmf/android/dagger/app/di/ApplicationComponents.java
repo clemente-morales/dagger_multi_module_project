@@ -1,4 +1,4 @@
-package com.blogspot.cmf.android.dagger.app;
+package com.blogspot.cmf.android.dagger.app.di;
 
 /**
  * @author Clemente Morales Fernandez

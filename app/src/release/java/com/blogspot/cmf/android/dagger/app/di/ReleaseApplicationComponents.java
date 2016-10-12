@@ -1,7 +1,5 @@
 package com.blogspot.cmf.android.dagger.app.di;
 
-import com.blogspot.cmf.android.dagger.app.ApplicationComponents;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
