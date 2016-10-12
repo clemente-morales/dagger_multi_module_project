@@ -1,6 +1,7 @@
 package com.blogspot.cmf.android.dagger.app.views.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import com.blogspot.cmf.android.dagger.app.R;
 import com.blogspot.cmf.android.dagger.app.di.ApplicationComponents;
 import com.blogspot.cmf.android.dagger.app.di.SetupApplication;
-import com.blogspot.cmf.android.dagger.app.events.ReplaceFragmentEvent;
+import com.blogspot.cmf.android.dagger.core.events.ReplaceFragmentEvent;
 import com.blogspot.cmf.android.dagger.app.views.fragments.HomeFragment;
+import com.blogspot.cmf.android.dagger.core.commands.ReplaceFragmentCommand;
+import com.blogspot.cmf.android.dagger.core.models.DataFragment;
 import com.blogspot.cmf.android.dagger.core.models.LogHandler;
+import com.blogspot.cmf.android.dagger.core.views.FragmentManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements FragmentManager {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -62,16 +66,29 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReplaceFragmentCommand(ReplaceFragmentCommand command) {
+        command.execute(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReplaceFragmentEvent(ReplaceFragmentEvent event) {
+        replaceCurrentFragment(event.getFragment(), event.isRequiredToAddInBackStack());
+    }
+
+    @Override
+    public void addFragment(DataFragment dataFragment) {
+        replaceCurrentFragment(dataFragment.getFragment(), dataFragment.isRequiresToAddInBackStack());
+    }
+
+    private void replaceCurrentFragment(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         transaction
-                .replace(R.id.fragment_container, event.getFragment());
+                .replace(R.id.fragment_container, fragment);
 
-        if (event.isRequiredToAddInBackStack())
+        if (addToBackStack)
             transaction.addToBackStack(null);
 
         transaction.commit();
     }
-
 }

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 public class DataFragment {
     private final String tag;
     private final Fragment fragment;
+    private boolean requiresToAddInBackStack = false;
 
     public DataFragment(String tag, Fragment fragment) {
         this.tag = tag;
@@ -18,6 +19,14 @@ public class DataFragment {
 
     public String getTag() {
         return tag;
+    }
+
+    public boolean isRequiresToAddInBackStack() {
+        return requiresToAddInBackStack;
+    }
+
+    public void setRequiresToAddInBackStack(boolean requiresToAddInBackStack) {
+        this.requiresToAddInBackStack = requiresToAddInBackStack;
     }
 
     public Fragment getFragment() {

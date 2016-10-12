@@ -1,4 +1,4 @@
-package com.blogspot.cmf.android.dagger.app.events;
+package com.blogspot.cmf.android.dagger.core.events;
 
 import android.support.v4.app.Fragment;
 
