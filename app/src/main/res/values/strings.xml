@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Commons</string>
+    <string name="app_name">Dagger example</string>
+    <string name="welcome_message">Hello there!</string>
 </resources>
