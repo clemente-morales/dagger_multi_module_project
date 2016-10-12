@@ -1,11 +1,14 @@
 package com.blogspot.cmf.android.dagger.core.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.blogspot.cmf.android.dagger.core.di.GraphProvider;
 
 
 /**
@@ -34,6 +37,15 @@ public abstract class BaseFragment extends Fragment {
 
     protected View buildRootView(LayoutInflater inflater, ViewGroup container) {
         return inflater.inflate(getLayout(), container, false);
+    }
+
+    protected final GraphProvider getGraphProvider() {
+        Context context = getActivity().getApplicationContext();
+
+        if (context instanceof GraphProvider)
+            return (GraphProvider) context;
+
+        throw new UnsupportedOperationException();
     }
 
     protected void initFragmentCreation(Bundle savedInstanceState) {

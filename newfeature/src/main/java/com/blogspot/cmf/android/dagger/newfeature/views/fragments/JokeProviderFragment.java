@@ -77,15 +77,6 @@ public class JokeProviderFragment extends BaseFragment {
         jokeDescription.setText(event.getJoke());
     }
 
-    public GraphProvider getGraphProvider() {
-        Context context = getActivity().getApplicationContext();
-
-        if (context instanceof GraphProvider)
-            return (GraphProvider) context;
-
-        throw new UnsupportedOperationException();
-    }
-
     private NewFeatureComponents geNewFeatureComponents() {
         GraphProvider graphProvider = getGraphProvider();
         return (NewFeatureComponents) graphProvider.getObjectGraph();

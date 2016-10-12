@@ -1,5 +1,7 @@
 package com.blogspot.cmf.android.dagger.app.di;
 
+import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureComponents;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -10,5 +12,5 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {ReleaseDependencyModuleApplication.class})
-public interface ReleaseApplicationComponents extends ApplicationComponents {
+public interface ReleaseApplicationComponents extends AppComponents, NewFeatureComponents {
 }

@@ -1,6 +1,5 @@
 package com.blogspot.cmf.android.dagger.app.views.fragments;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,15 +41,6 @@ public class HomeFragment extends BaseFragment {
                 homePresenter.openNextView(new ReplaceFragmentEvent(new JokeProviderFragment(), false));
             }
         });
-    }
-
-    public GraphProvider getGraphProvider() {
-        Context context = getActivity().getApplicationContext();
-
-        if (context instanceof GraphProvider)
-            return (GraphProvider) context;
-
-        throw new UnsupportedOperationException();
     }
 
     private AppComponents getAppComponents() {
