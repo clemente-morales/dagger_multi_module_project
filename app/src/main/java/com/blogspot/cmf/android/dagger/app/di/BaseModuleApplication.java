@@ -1,7 +1,6 @@
 package com.blogspot.cmf.android.dagger.app.di;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -9,7 +8,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 
 /**
  * @author Clemente Morales Fernandez
@@ -28,13 +26,5 @@ public abstract class BaseModuleApplication {
     @Singleton
     public final SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(application);
-    }
-
-    @Provides
-    @Singleton
-    public EventBus providesEventBus() {
-        return de.greenrobot.event.EventBus.builder().
-                logNoSubscriberMessages(true).sendNoSubscriberEvent(true).
-                build();
     }
 }

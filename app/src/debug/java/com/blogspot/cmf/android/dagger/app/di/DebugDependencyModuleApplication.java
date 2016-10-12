@@ -5,6 +5,8 @@ import android.app.Application;
 import com.blogspot.cmf.android.dagger.app.models.AndroidLogHandler;
 import com.blogspot.cmf.android.dagger.core.models.LogHandler;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,5 +26,13 @@ public class DebugDependencyModuleApplication extends BaseModuleApplication {
     @Singleton
     public LogHandler providesLogHandler(){
         return new AndroidLogHandler();
+    }
+
+    @Provides
+    @Singleton
+    public EventBus providesEventBus() {
+        return EventBus.builder().throwSubscriberException(true).
+                logNoSubscriberMessages(true).sendNoSubscriberEvent(true).
+                build();
     }
 }

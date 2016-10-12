@@ -5,6 +5,8 @@ import android.app.Application;
 import com.blogspot.cmf.android.dagger.app.models.EmptyLogHandler;
 import com.blogspot.cmf.android.dagger.core.models.LogHandler;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -25,5 +27,13 @@ public class ReleaseDependencyModuleApplication extends BaseModuleApplication {
     @Singleton
     public LogHandler providesLogHandler() {
         return new EmptyLogHandler();
+    }
+
+    @Provides
+    @Singleton
+    public EventBus providesEventBus() {
+        return EventBus.builder().
+                logNoSubscriberMessages(true).sendNoSubscriberEvent(true).
+                build();
     }
 }
