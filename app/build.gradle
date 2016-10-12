@@ -61,6 +61,7 @@ dependencies {
     compile "org.greenrobot:eventbus:$rootProject.ext.eventbusVersion"
 
     compile project(':core')
+    compile project(':newfeature')
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 

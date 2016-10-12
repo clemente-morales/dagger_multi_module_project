@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: "com.jfrog.artifactory"
+
+group = 'com.blogspot.cmf.android.dagger'
+version = currentVersion
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided project(':core')
+    provided "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+}
