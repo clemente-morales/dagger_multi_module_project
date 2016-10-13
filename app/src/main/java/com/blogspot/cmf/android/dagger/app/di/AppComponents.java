@@ -12,4 +12,6 @@ import com.blogspot.cmf.android.dagger.core.di.ApplicationComponents;
 public interface AppComponents extends ApplicationComponents {
     void inject(HomeActivity homeActivity);
     void inject(HomeFragment homeFragment);
+
+    NewFeatureComponents getNewFeatureComponent(NewFeatureModule newFeatureModule);
 }

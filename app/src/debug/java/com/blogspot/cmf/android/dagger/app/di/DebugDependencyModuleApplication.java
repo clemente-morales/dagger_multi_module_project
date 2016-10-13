@@ -24,7 +24,7 @@ public class DebugDependencyModuleApplication extends BaseModuleApplication {
 
     @Provides
     @Singleton
-    public LogHandler providesLogHandler(){
+    public LogHandler providesLogHandler() {
         return new AndroidLogHandler();
     }
 

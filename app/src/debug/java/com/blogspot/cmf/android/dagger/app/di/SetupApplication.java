@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.blogspot.cmf.android.dagger.core.di.ApplicationComponents;
 import com.blogspot.cmf.android.dagger.core.di.GraphProvider;
+import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureGraphProvider;
 
 
 /**
@@ -12,7 +13,7 @@ import com.blogspot.cmf.android.dagger.core.di.GraphProvider;
  * @since 10/11/2016.
  */
 
-public class SetupApplication extends Application implements GraphProvider {
+public class SetupApplication extends Application implements GraphProvider, NewFeatureGraphProvider {
     private DebugApplicationComponents debugApplicationComponents;
 
     @Override
@@ -22,20 +23,29 @@ public class SetupApplication extends Application implements GraphProvider {
     }
 
     public ApplicationComponents getObjectGraph() {
-        if (debugApplicationComponents == null) {
-            loadGraph();
-        }
+        loadGraph();
 
         return debugApplicationComponents;
     }
 
     private void loadGraph() {
-        debugApplicationComponents = DaggerDebugApplicationComponents.builder()
-                .debugDependencyModuleApplication(
-                        new DebugDependencyModuleApplication(this)).build();
+        if (debugApplicationComponents == null) {
+            debugApplicationComponents = DaggerDebugApplicationComponents.builder()
+                    .debugDependencyModuleApplication(
+                            new DebugDependencyModuleApplication(this))
+                    .build();
+        }
     }
 
     public static AppComponents getObjectGraph(Context context) {
         return (AppComponents) ((GraphProvider) context).getObjectGraph();
+    }
+
+    @Override
+    public NewFeatureComponents getGraph() {
+        loadGraph();
+
+        // This line is creating new Module instance every time we request for the graph in the invokers.
+        return debugApplicationComponents.getNewFeatureComponent(new NewFeatureModule(this));
     }
 }

@@ -5,11 +5,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.blogspot.cmf.android.dagger.core.di.GraphProvider;
 import com.blogspot.cmf.android.dagger.core.views.fragments.BaseFragment;
 import com.blogspot.cmf.android.dagger.newfeature.R;
-import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureComponents;
+import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureGraphProvider;
+import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureInjector;
 import com.blogspot.cmf.android.dagger.newfeature.events.NewJokeFetchedEvent;
+import com.blogspot.cmf.android.dagger.newfeature.models.Joke;
 import com.blogspot.cmf.android.dagger.newfeature.presenters.JokeProviderPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,7 +40,7 @@ public class JokeProviderFragment extends BaseFragment {
 
     @Override
     public void injectDependencies() {
-        NewFeatureComponents newFeatureComponents = geNewFeatureComponents();
+        NewFeatureInjector newFeatureComponents = geNewFeatureComponents();
         newFeatureComponents.inject(this);
     }
 
@@ -74,13 +75,22 @@ public class JokeProviderFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNewJokeFetchedEvent(NewJokeFetchedEvent event) {
-        jokeDescription.setText(event.getJoke());
+        Joke joke = event.getJoke();
+        jokeDescription.setText(joke.getDescription());
     }
 
-    private NewFeatureComponents geNewFeatureComponents() {
-        GraphProvider graphProvider = getGraphProvider();
-        return (NewFeatureComponents) graphProvider.getObjectGraph();
+    private NewFeatureInjector geNewFeatureComponents() {
+        NewFeatureGraphProvider graphProvider = getObjectGraphProvider();
+        return graphProvider.getGraph();
     }
 
+    private NewFeatureGraphProvider getObjectGraphProvider() {
+        Context context = getActivity().getApplicationContext();
+
+        if (context instanceof NewFeatureGraphProvider)
+            return (NewFeatureGraphProvider) context;
+
+        throw new UnsupportedOperationException();
+    }
 
 }

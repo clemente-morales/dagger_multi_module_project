@@ -13,8 +13,7 @@ import dagger.Provides;
  * @author Clemente Morales Fernandez
  * @since 10/11/2016.
  */
-@Module(
-)
+@Module
 public abstract class BaseModuleApplication {
     private final Application application;
 

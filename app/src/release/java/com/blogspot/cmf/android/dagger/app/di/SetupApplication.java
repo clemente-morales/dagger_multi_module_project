@@ -3,13 +3,17 @@ package com.blogspot.cmf.android.dagger.app.di;
 import android.app.Application;
 import android.content.Context;
 
+import com.blogspot.cmf.android.dagger.core.di.ApplicationComponents;
+import com.blogspot.cmf.android.dagger.core.di.GraphProvider;
+import com.blogspot.cmf.android.dagger.newfeature.di.NewFeatureGraphProvider;
+
 
 /**
  * @author Clemente Morales Fernandez
  * @since 10/11/2016.
  */
 
-public class SetupApplication extends Application {
+public class SetupApplication extends Application implements GraphProvider, NewFeatureGraphProvider {
     private ReleaseApplicationComponents releaseApplicationComponents;
 
     @Override
@@ -19,21 +23,29 @@ public class SetupApplication extends Application {
     }
 
     public ApplicationComponents getObjectGraph() {
-        if (releaseApplicationComponents == null) {
-            loadGraph();
-        }
+        loadGraph();
 
         return releaseApplicationComponents;
     }
 
     private void loadGraph() {
-        releaseApplicationComponents = DaggerReleaseApplicationComponents.builder()
-                .releaseDependencyModuleApplication(
-                        new ReleaseDependencyModuleApplication(this)).build();
+        if (releaseApplicationComponents == null) {
+            releaseApplicationComponents = DaggerReleaseApplicationComponents.builder()
+                    .releaseDependencyModuleApplication(
+                            new ReleaseDependencyModuleApplication(this)).build();
+        }
     }
 
-    public static ApplicationComponents getObjectGraph(Context context) {
-        return ((SetupApplication) context).getObjectGraph();
+    public static AppComponents getObjectGraph(Context context) {
+        return (AppComponents) ((GraphProvider) context).getObjectGraph();
+    }
+
+    @Override
+    public NewFeatureComponents getGraph() {
+        loadGraph();
+
+        // This line is creating new Module instance every time we request for the graph in the invokers.
+        return releaseApplicationComponents.getNewFeatureComponent(new NewFeatureModule(this));
     }
 
 }
