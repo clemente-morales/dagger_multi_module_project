@@ -35,8 +35,10 @@ ext {
 
     daggerVersion = '2.7'
     eventbusVersion = '3.0.0'
+    javaxInjectVersion = '1'
 
     supportLibraryVersion = '24.2.1'
+
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
